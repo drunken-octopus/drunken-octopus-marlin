@@ -660,7 +660,14 @@ function make_config(PRINTER, TOOLHEAD) {
     if (IS_TAZ && !USE_ARCHIM2 && ["BLTouch", "Inductive"].includes(PROBE_STYLE)) {
         USE_LESS_MEMORY                                  = 2
     }
-
+    
+      if (PRINTER.includes("Quiver_TAZPro") && PRINTER.includes("BLTouch") && (!TOOLHEAD.includes("Quiver_DualExtruder"))) {
+        MARLIN["SERVO0_PIN"]                             = 21
+        MARLIN["SERVO1_PIN"]                             = 20
+        MARLIN["Z_MIN_PIN"]                              = 63
+        MARLIN["TEMP_1_PIN"]                             = -1
+        MARLIN["CALIBRATION_PIN"]                        = 31
+    }
 /*************************** GENERAL CONFIGURATION ***************************/
 
     MARLIN["STRING_CONFIG_H_AUTHOR"]                     = C_STRING("(Drunken Octopus Marlin)")
