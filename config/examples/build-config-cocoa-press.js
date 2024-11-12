@@ -192,13 +192,13 @@ function make_config(PRINTER, TOOLHEAD) {
     MARLIN["TOUCH_UI_LCD_TEMP_SCALING"]                  = 10 // Scale all UI temperatures by 10
     MARLIN["TOUCH_UI_LCD_TEMP_PRECISION"]                = 1  // Use one decimal point for temperatures
 
-    // These values are scaled by 10
-    MARLIN["HEATER_0_MAXTEMP"]                           = 500
-    MARLIN["HEATER_1_MAXTEMP"]                           = 500
-    MARLIN["HEATER_2_MAXTEMP"]                           = 500
-    MARLIN["HEATER_3_MAXTEMP"]                           = 500
-    MARLIN["HEATER_4_MAXTEMP"]                           = 500
-    MARLIN["HEATER_5_MAXTEMP"]                           = 500
+    // These values are scaled by 10, set temp to 800 + HOTEND_OVERSHOOT
+    MARLIN["HEATER_0_MAXTEMP"]                           = 815
+    MARLIN["HEATER_1_MAXTEMP"]                           = 815
+    MARLIN["HEATER_2_MAXTEMP"]                           = 815
+    MARLIN["HEATER_3_MAXTEMP"]                           = 815
+    MARLIN["HEATER_4_MAXTEMP"]                           = 815
+    MARLIN["HEATER_5_MAXTEMP"]                           = 815
 
 
     MARLIN["HEATER_0_MINTEMP"]                           = 100
