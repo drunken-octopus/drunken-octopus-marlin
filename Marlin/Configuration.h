@@ -632,12 +632,12 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 500 // <-- changed
-#define HEATER_1_MAXTEMP 500 // <-- changed
-#define HEATER_2_MAXTEMP 500 // <-- changed
-#define HEATER_3_MAXTEMP 500 // <-- changed
-#define HEATER_4_MAXTEMP 500 // <-- changed
-#define HEATER_5_MAXTEMP 500 // <-- changed
+#define HEATER_0_MAXTEMP 815 // <-- changed
+#define HEATER_1_MAXTEMP 815 // <-- changed
+#define HEATER_2_MAXTEMP 815 // <-- changed
+#define HEATER_3_MAXTEMP 815 // <-- changed
+#define HEATER_4_MAXTEMP 815 // <-- changed
+#define HEATER_5_MAXTEMP 815 // <-- changed
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
 #define BED_MAXTEMP      150
