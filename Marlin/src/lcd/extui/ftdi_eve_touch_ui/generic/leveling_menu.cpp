@@ -70,6 +70,10 @@ using namespace Theme;
   #define BACK_POS           BTN_POS(1,6), BTN_SIZE(3,1)
 #endif
 
+#ifndef Z_ALIGN_COMMANDS
+  #define Z_ALIGN_COMMANDS "G34"
+#endif
+
 void LevelingMenu::onRedraw(draw_mode_t what) {
   if (what & BACKGROUND) {
     CommandProcessor cmd;
@@ -131,7 +135,7 @@ bool LevelingMenu::onTouchEnd(uint8_t tag) {
     #elif defined(AXIS_LEVELING_COMMANDS)
       case 2: SpinnerDialogBox::enqueueAndWait(F(AXIS_LEVELING_COMMANDS)); break;
     #elif ANY(Z_STEPPER_AUTO_ALIGN, MECHANICAL_GANTRY_CALIBRATION, X_LEVEL_SEQUENCE)
-      case 2: SpinnerDialogBox::enqueueAndWait(F(LEVELING_COMMANDS)); break;
+      case 2: SpinnerDialogBox::enqueueAndWait(F(Z_ALIGN_COMMANDS)); break;
     #endif
     #if HAS_BED_PROBE
       case 3:

@@ -36,7 +36,7 @@ void GcodeSuite::M16() {
     #undef MACHINE_NAME
     #define MACHINE_NAME M16_MACHINE_NAME
   #endif
-  if (strcmp_P(parser.string_arg, PSTR(MACHINE_NAME)))
+  if (TERN(CONFIGURABLE_MACHINE_NAME, strcmp(parser.string_arg, machine_name), strcmp_P(parser.string_arg, PSTR(MACHINE_NAME))))
     kill(GET_TEXT_F(MSG_KILL_EXPECTED_PRINTER));
 
 }
