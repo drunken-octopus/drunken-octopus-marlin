@@ -104,7 +104,7 @@ void event_filament_runout(const uint8_t extruder) {
   #endif
 
   #if defined(CURA_LE_RUNOUT_HANDLING_WORKAROUND)
-  const bool run_runout_script = IS_SD_PRINTING();
+  const bool run_runout_script = card.isStillPrinting();
   #else
   const bool run_runout_script = !runout.host_handling;
   #endif
