@@ -1,4 +1,9 @@
-#include "TMCStepper.h"
+/**
+ * TMCStepper library by @teemuatlut
+ * SHORT_CONF.cpp - Short Configuration
+ * TMC2160 (TMC5130, TMC5160, TMC5161)
+ */
+#include "../TMCStepper.h"
 #include "TMC_MACROS.h"
 
 #define SET_REG(SETTING) SHORT_CONF_register.SETTING = B; write(SHORT_CONF_register.address, SHORT_CONF_register.sr)

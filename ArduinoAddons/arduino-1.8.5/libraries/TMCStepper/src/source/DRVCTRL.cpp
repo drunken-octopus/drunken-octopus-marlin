@@ -1,4 +1,9 @@
-#include "TMCStepper.h"
+/**
+ * TMCStepper library by @teemuatlut
+ * DRVCTRL.cpp - Driver Control
+ * TMC2660
+ */
+#include "../TMCStepper.h"
 #include "TMC_MACROS.h"
 
 #define SET_REG0(SETTING) DRVCTRL_0_register.SETTING = B; DRVCTRL(DRVCTRL_0_register.sr)

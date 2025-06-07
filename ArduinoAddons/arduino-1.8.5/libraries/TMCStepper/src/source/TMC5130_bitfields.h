@@ -1,3 +1,26 @@
+/**
+ * TMCStepper library by @teemuatlut
+ * TMC5130_bitfields.h
+ *
+ * Inherits from TMC2160 < TMC2130.
+ *
+ * Overriding TMC2130, TMC2160:
+ * IOIN
+ *
+ * TMC5130 (TMC5160, TMC5161) hardware registers:
+ * SLAVECONF
+ * OUTPUT
+ * X_COMPARE
+ * RAMPMODE, RAMP_STAT
+ * XACTUAL
+ * VSTART, VSTOP
+ * A1, V1, D1
+ * AMAX, VMAX, DMAX
+ * TZEROWAIT
+ * SW_MODE
+ * ENCMODE, ENC_CONST
+ * MSLUT0 .. MSLUT7, MSLUTSEL, MSLUTSTART
+ */
 #pragma once
 #pragma pack(push, 1)
 
@@ -60,7 +83,7 @@ struct VSTART_t {
 
 struct A1_t {
   constexpr static uint8_t address = 0x24;
-  uint16_t sr : 16;
+  uint16_t sr;
 };
 
 struct V1_t {
@@ -70,7 +93,7 @@ struct V1_t {
 
 struct AMAX_t {
   constexpr static uint8_t address = 0x26;
-  uint16_t sr : 16;
+  uint16_t sr;
 };
 
 struct VMAX_t {
@@ -80,12 +103,12 @@ struct VMAX_t {
 
 struct DMAX_t {
   constexpr static uint8_t address = 0x28;
-  uint16_t sr : 16;
+  uint16_t sr;
 };
 
 struct D1_t {
   constexpr static uint8_t address = 0x2A;
-  uint16_t sr : 16;
+  uint16_t sr;
 };
 
 struct VSTOP_t {
@@ -95,7 +118,7 @@ struct VSTOP_t {
 
 struct TZEROWAIT_t {
   constexpr static uint8_t address = 0x2C;
-  uint16_t sr : 16;
+  uint16_t sr;
 };
 
 struct SW_MODE_t {

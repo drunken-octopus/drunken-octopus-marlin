@@ -1,3 +1,18 @@
+/**
+ * TMCStepper library by @teemuatlut
+ * TMC2130_bitfields.h
+ *
+ * TMC2130 hardware register bit fields:
+ * GCONF, GSTAT
+ * IHOLD_IRUN
+ * IOIN
+ * TPOWERDOWN, TPWMTHRS, TCOOLTHRS, THIGH
+ * XDIRECT
+ * VDCMIN
+ * CHOPCONF, COOLCONF, PWMCONF
+ * DCCTRL, ENCM_CTRL
+ * DRV_STATUS
+ */
 #pragma once
 #pragma pack(push, 1)
 
@@ -84,7 +99,7 @@ struct IOIN_t {
 
 struct TPOWERDOWN_t {
   constexpr static uint8_t address = 0x11;
-  uint8_t sr : 8;
+  uint8_t sr;
 };
 
 struct TPWMTHRS_t {
@@ -122,30 +137,30 @@ struct VDCMIN_t {
 struct CHOPCONF_t {
   constexpr static uint8_t address = 0x6C;
   union {
-    uint32_t sr : 32;
-    struct {
-      uint8_t toff : 4,
-              hstrt : 3,
-              hend : 4,
-                   : 1;
-      bool    disfdcc : 1,
-              rndtf : 1,
-              chm : 1;
-      uint8_t tbl : 2;
-      bool    vsense : 1,
-              vhighfs : 1,
-              vhighchm : 1;
-      uint8_t sync : 4, // 2130, 5130
-              mres : 4;
-      bool    intpol : 1,
-              dedge : 1,
-              diss2g : 1;
+    uint32_t sr;              // 0x10410150
+    struct { // 2130, 5130
+      uint8_t toff     : 4,   // 0
+              hstrt    : 3,   // 5
+              hend     : 4,   // 2
+                       : 1; // unused
+      bool    disfdcc  : 1,   // false
+              rndtf    : 1,   // false
+              chm      : 1;   // false
+      uint8_t tbl      : 2;   // 2
+      bool    vsense   : 1,   // false
+              vhighfs  : 1,   // false
+              vhighchm : 1;   // false
+      uint8_t sync     : 4,   // 4
+              mres     : 4;   // 0
+      bool    intpol   : 1,   // true
+              dedge    : 1,   // false
+              diss2g   : 1;   // false
     };
     struct { // TMC5160
-      uint32_t     : 20;
-      uint8_t tpfd : 4; // 5160
-      uint16_t     : 7;
-      bool diss2vs : 1; // TMC5160 only
+      uint32_t         : 20;
+      uint8_t tpfd     : 4;
+      uint16_t         : 7;
+      bool diss2vs     : 1;   // false
     };
   };
 };
@@ -209,14 +224,14 @@ namespace TMC2130_n {
 struct PWMCONF_t {
   constexpr static uint8_t address = 0x70;
   union {
-    uint32_t sr : 22;
+    uint32_t sr : 22;         // 0x00050480
     struct {
-      uint8_t pwm_ampl : 8,
-              pwm_grad : 8,
-              pwm_freq : 2;
-      bool pwm_autoscale : 1,
-           pwm_symmetric : 1;
-      uint8_t freewheel : 2;
+      uint8_t pwm_ampl   : 8, // 128
+              pwm_grad   : 8, // 4
+              pwm_freq   : 2; // 1
+      bool pwm_autoscale : 1, // true
+           pwm_symmetric : 1; // false
+      uint8_t freewheel  : 2; // 0
     };
   };
 };

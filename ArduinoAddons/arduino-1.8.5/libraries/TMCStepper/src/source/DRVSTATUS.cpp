@@ -1,4 +1,9 @@
-#include "TMCStepper.h"
+/**
+ * TMCStepper library by @teemuatlut
+ * DRVSTATUS.cpp - Driver Status
+ * TMC2660
+ */
+#include "../TMCStepper.h"
 #include "TMC_MACROS.h"
 
 #define GET_REG00(SETTING) DRVSTATUS(); return READ_RDSEL00_register.SETTING
@@ -30,7 +35,7 @@ bool TMC2660Stepper::otpw() 		{ GET_REG00(otpw); }
 bool TMC2660Stepper::ot() 			{ GET_REG00(ot);	 }
 bool TMC2660Stepper::sg() 			{ GET_REG00(sg_value);	 }
 
-uint16_t TMC2660Stepper::sg_result(){
+uint16_t TMC2660Stepper::sg_result() {
 	uint16_t out = 0;
 	if (rdsel() == 0b00) rdsel(0b01);
 	DRVSTATUS();

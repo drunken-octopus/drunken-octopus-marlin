@@ -1,4 +1,9 @@
-#include "TMCStepper.h"
+/**
+ * TMCStepper library by @teemuatlut
+ * TMC2160Stepper.cpp
+ * Implementing methods for TMC2160 (TMC5130, TMC5160, TMC5161)
+ */
+#include "../TMCStepper.h"
 #include "TMC_MACROS.h"
 
 TMC2160Stepper::TMC2160Stepper(uint16_t pinCS, float RS, int8_t link) : TMC2130Stepper(pinCS, RS, link)
@@ -32,12 +37,15 @@ void TMC2160Stepper::defaults() {
   SHORT_CONF_register.s2g_level = 6;
   SHORT_CONF_register.shortfilter = 0b01;
   SHORT_CONF_register.shortdelay = 0;
+
   DRV_CONF_register.bbmtime = 0;
   DRV_CONF_register.bbmclks = 4;
   DRV_CONF_register.otselect = 0b00;
   DRV_CONF_register.drvstrength = 0b10;
   DRV_CONF_register.filt_isense = 0b00;
+
   TPOWERDOWN_register.sr = 10;
+
   //MSLUT0_register.sr = ???;
   //MSLUT1_register.sr = ???;
   //MSLUT2_register.sr = ???;
@@ -46,11 +54,38 @@ void TMC2160Stepper::defaults() {
   //MSLUT5_register.sr = ???;
   //MSLUT6_register.sr = ???;
   //MSLUT7_register.sr = ???;
+
   //MSLUTSEL_register.sr = ???;
+
   //MSLUTSTART_register.start_sin = 0;
   //MSLUTSTART_register.start_sin90 = 247;
-  CHOPCONF_register.sr = 0x10410150;
-  PWMCONF_register.sr = 0xC40C001E;
+
+  //CHOPCONF_register.sr = 0x10410150;
+  CHOPCONF_register.toff     = 0;
+  CHOPCONF_register.hstrt    = 5;
+  CHOPCONF_register.hend     = 2;
+  CHOPCONF_register.disfdcc  = false;
+  CHOPCONF_register.rndtf    = false;
+  CHOPCONF_register.chm      = false;
+  CHOPCONF_register.tbl      = 2;
+  CHOPCONF_register.vsense   = false;
+  CHOPCONF_register.vhighfs  = false;
+  CHOPCONF_register.vhighchm = false;
+  CHOPCONF_register.sync     = 4;
+  CHOPCONF_register.mres     = 0;
+  CHOPCONF_register.intpol   = true;
+  CHOPCONF_register.dedge    = false;
+  CHOPCONF_register.diss2g   = false;
+
+  //PWMCONF_register.sr = 0xC40C001E;
+  PWMCONF_register.pwm_ofs       = 30;
+  PWMCONF_register.pwm_grad      = 0;
+  PWMCONF_register.pwm_freq      = 0;
+  PWMCONF_register.pwm_autoscale = true;
+  PWMCONF_register.pwm_autograd  = true;
+  PWMCONF_register.freewheel     = 0;
+  PWMCONF_register.pwm_reg       = 4;
+  PWMCONF_register.pwm_lim       = 12;
 }
 
 /*
@@ -128,26 +163,6 @@ void TMC2160Stepper::push() {
   GLOBAL_SCALER(GLOBAL_SCALER_register.sr);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-// R: IOIN
-uint32_t  TMC2160Stepper::IOIN() {
-  return read(TMC2160_n::IOIN_t::address);
-}
-bool    TMC2160Stepper::refl_step()      { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.refl_step; }
-bool    TMC2160Stepper::refr_dir()       { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.refr_dir; }
-bool    TMC2160Stepper::encb_dcen_cfg4() { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.encb_dcen_cfg4; }
-bool    TMC2160Stepper::enca_dcin_cfg5() { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.enca_dcin_cfg5; }
-bool    TMC2160Stepper::drv_enn()        { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.drv_enn; }
-bool    TMC2160Stepper::dco_cfg6()       { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.dco_cfg6; }
-uint8_t TMC2160Stepper::version()        { TMC2160_n::IOIN_t r{0}; r.sr = IOIN(); return r.version; }
-
-// W: GLOBAL_SCALER
-uint8_t TMC2160Stepper::GLOBAL_SCALER() { return GLOBAL_SCALER_register.sr; }
-void TMC2160Stepper::GLOBAL_SCALER(uint8_t input) {
-  GLOBAL_SCALER_register.sr = input;
-  write(GLOBAL_SCALER_register.address, GLOBAL_SCALER_register.sr);
-}
-
 // R: OFFSET_READ
 uint16_t TMC2160Stepper::OFFSET_READ() { return read(OFFSET_READ_t::address); }
 
@@ -155,5 +170,5 @@ uint16_t TMC2160Stepper::OFFSET_READ() { return read(OFFSET_READ_t::address); }
 uint32_t TMC2160Stepper::PWM_SCALE() {
   return read(TMC2160_n::PWM_SCALE_t::address);
 }
-uint8_t TMC2160Stepper::pwm_scale_sum()   { TMC2160_n::PWM_SCALE_t r{0}; r.sr = PWM_SCALE(); return r.pwm_scale_sum; }
-uint16_t TMC2160Stepper::pwm_scale_auto() { TMC2160_n::PWM_SCALE_t r{0}; r.sr = PWM_SCALE(); return r.pwm_scale_auto; }
+uint8_t TMC2160Stepper::pwm_scale_sum()   { TMC2160_n::PWM_SCALE_t r{}; r.sr = PWM_SCALE(); return r.pwm_scale_sum; }
+uint16_t TMC2160Stepper::pwm_scale_auto() { TMC2160_n::PWM_SCALE_t r{}; r.sr = PWM_SCALE(); return r.pwm_scale_auto; }

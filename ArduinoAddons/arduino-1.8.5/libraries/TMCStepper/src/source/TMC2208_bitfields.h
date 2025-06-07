@@ -1,3 +1,17 @@
+/**
+ * TMCStepper library by @teemuatlut
+ * TMC2208_bitfields.h
+ *
+ * TMC2208 (TMC2209, TMC2224) hardware register bit fields.
+ *
+ * Overriding TMC2130:
+ * GCONF, FACTORY_CONF, CHOPCONF
+ * PWMCONF, PWM_SCALE
+ * IOIN
+ * VACTUAL
+ * MSCURACT
+ * DRV_STATUS
+ */
 #pragma once
 #pragma pack(push, 1)
 
@@ -29,11 +43,11 @@ namespace TMC2208_n {
       uint32_t sr;
       struct {
         bool  enn : 1,
-              : 1,
+                  : 1,
               ms1 : 1,
               ms2 : 1,
               diag : 1,
-              : 1,
+                   : 1,
               pdn_uart : 1,
               step : 1,
               sel_a : 1,
@@ -102,20 +116,20 @@ namespace TMC2208_n {
   struct CHOPCONF_t {
     constexpr static uint8_t address = 0x6C;
     union {
-      uint32_t sr;
+      uint32_t sr;            // 0x10000053
       struct {
-        uint8_t toff : 4,
-                hstrt : 3,
-                hend : 4,
-                     : 4,
-                tbl : 2;
-        bool    vsense : 1;
-        uint8_t : 6,
-                mres : 4;
-        bool    intpol : 1,
-                dedge : 1,
-                diss2g : 1,
-                diss2vs : 1;
+        uint8_t toff    : 4,  // 3
+                hstrt   : 3,  // 5
+                hend    : 4,  // 0
+                        : 4,  // unused
+                tbl     : 2;  // 0
+        bool    vsense  : 1;  // false
+        uint8_t         : 6,  // unused
+                mres    : 4;  // 0
+        bool    intpol  : 1,  // true
+                dedge   : 1,  // false
+                diss2g  : 1,  // false
+                diss2vs : 1;  // false
       };
     };
   };
@@ -123,17 +137,17 @@ namespace TMC2208_n {
   struct PWMCONF_t {
     constexpr static uint8_t address = 0x70;
     union {
-      uint32_t sr;
+      uint32_t sr;              // 0xC10D0024
       struct {
-        uint8_t pwm_ofs : 8,
-                pwm_grad : 8,
-                pwm_freq : 2;
-        bool pwm_autoscale : 1,
-             pwm_autograd : 1;
-        uint8_t freewheel : 2,
-                          : 2,
-                pwm_reg : 4,
-                pwm_lim : 4;
+        uint8_t pwm_ofs    : 8, // 36
+                pwm_grad   : 8, // 0
+                pwm_freq   : 2; // 1
+        bool pwm_autoscale : 1, // true
+             pwm_autograd  : 1; // true
+        uint8_t freewheel  : 2, // 0
+                           : 2, // unused
+                pwm_reg    : 4, // 1
+                pwm_lim    : 4; // 12
       };
     };
   };
@@ -170,9 +184,9 @@ namespace TMC2208_n {
     union {
       uint32_t sr;
       struct {
-        uint8_t pwm_scale_sum : 8,
-                : 8;
-        int16_t pwm_scale_auto : 9;
+        uint8_t pwm_scale_sum   : 8,
+                                : 8;  // unused
+        int16_t pwm_scale_auto  : 9;
       };
     };
   };

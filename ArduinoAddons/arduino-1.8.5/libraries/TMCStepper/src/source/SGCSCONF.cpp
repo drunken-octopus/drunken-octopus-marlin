@@ -1,4 +1,9 @@
-#include "TMCStepper.h"
+/**
+ * TMCStepper library by @teemuatlut
+ * SGCSCONF.cpp - SGCS Configuration
+ * TMC2660
+ */
+#include "../TMCStepper.h"
 #include "TMC_MACROS.h"
 
 #define SET_REG(SETTING) SGCSCONF_register.SETTING = B; write(SGCSCONF_register.address, SGCSCONF_register.sr);

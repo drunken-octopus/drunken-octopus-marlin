@@ -1,3 +1,13 @@
+/**
+ * TMCStepper library by @teemuatlut
+ * TMC2160_bitfields.h
+ *
+ * TMC2160 (TMC5130, TMC5160, TMC5161) hardware register bit fields.
+ *
+ * Overriding TMC2130:
+ * IOIN
+ * PWMCONF, PWM_SCALE
+ */
 #pragma once
 #pragma pack(push, 1)
 
@@ -23,17 +33,17 @@ namespace TMC2160_n {
   struct PWMCONF_t {
     constexpr static uint8_t address = 0x70;
     union {
-      uint32_t sr;
+      uint32_t sr;                // 0xC40C001E
       struct {
-        uint8_t pwm_ofs : 8,
-                pwm_grad : 8,
-                pwm_freq : 2;
-        bool pwm_autoscale : 1,
-             pwm_autograd : 1;
-        uint8_t freewheel : 2,
-                          : 2,
-                pwm_reg : 4,
-                pwm_lim : 4;
+        uint8_t pwm_ofs    : 8,   // 30
+                pwm_grad   : 8,   // 0
+                pwm_freq   : 2;   // 0
+        bool pwm_autoscale : 1,   // true
+             pwm_autograd  : 1;   // true
+        uint8_t freewheel  : 2,   // 0
+                           : 2,
+                pwm_reg    : 4,   // 4
+                pwm_lim    : 4;   // 12
       };
     };
   };
