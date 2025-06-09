@@ -843,7 +843,10 @@ MV = mv -f
 CDEFS    = -DF_CPU=$(F_CPU)UL ${addprefix -D , $(DEFINES)} -DARDUINO=$(ARDUINO_VERSION)
 CXXDEFS  = $(CDEFS)
 
-ifeq ($(HARDWARE_VARIANT), Teensy)
+ifeq ($(HARDWARE_VARIANT), arduino)
+  LIB_CXXSRC += abi.cpp
+
+else ifeq ($(HARDWARE_VARIANT), Teensy)
   CDEFS      += -DUSB_SERIAL
   LIB_SRC    += usb.c pins_teensy.c
   LIB_CXXSRC += usb_api.cpp
