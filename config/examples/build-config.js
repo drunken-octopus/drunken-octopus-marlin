@@ -1842,6 +1842,9 @@ function make_config(PRINTER, TOOLHEAD) {
     }
     else if (PROBE_STYLE == "Conductive") {
        MARLIN["NOZZLE_AS_PROBE"]                         = true
+       if (ENABLED("SWITCHING_NOZZLE")) {
+          MARLIN["SWITCHING_NOZZLE_LIFT_TO_PROBE"]       = false
+       }
     }
     else if (PROBE_STYLE == "Manual") {
        // Use FIX_MOUNTED_PROBE to allow Z offset to work
